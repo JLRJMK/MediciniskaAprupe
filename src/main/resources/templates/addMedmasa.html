@@ -12,6 +12,12 @@
 
 <form th:action="@{/addMedmasa}"
       th:object="${medmasa}" method="POST">
+
+    ID:
+    <label>
+        <input type="text" th:field="*{id}" />
+    </label>
+    <br/>
     Name:
     <label>
         <input type="text" th:field="*{fName}" />

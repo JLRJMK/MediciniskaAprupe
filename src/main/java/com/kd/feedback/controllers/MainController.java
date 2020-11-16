@@ -12,24 +12,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class MainController {
-
-    private static final List<Gim_arsts> gim_arstsList = new ArrayList<>();
-
-    static {
-        gim_arstsList.add(new Gim_arsts(1, "a", "aa", "aaa", "aaaa"));
-        gim_arstsList.add(new Gim_arsts(2, "b", "bb", "bbb", "aaaa"));
-    }
-
-    private static final List<Medmasa> medmasas = new ArrayList<>();
-
-    static {
-        medmasas.add(new Medmasa(1, "C", "CC    ", "ccc", "cccc"));
-        medmasas.add(new Medmasa(2, "d", "dd", "ddd", "dddd"));
-    }
-
 
     @Value("${welcome.message}")
     private String message;
@@ -43,9 +29,11 @@ public class MainController {
         return "index";
     }
 
+// Medmasas kontrolleri
+
     @RequestMapping(value = {"/medmasaList"}, method = RequestMethod.GET)
     public String medmasas(Model model) {
-        model.addAttribute("medmasas", medmasas);
+        model.addAttribute("medmasas", Medmasa.medmasas);
         return "medmasaList";
     }
 
@@ -60,20 +48,36 @@ public class MainController {
 
     @RequestMapping(value = {"/addMedmasa"}, method = RequestMethod.POST)
     public String saveMedmasa(@ModelAttribute("medmasaForm") Medmasa medmasa) {
-
-
-        medmasa.add(medmasa);
+        Medmasa.medmasas.add(medmasa);
 
         return "redirect:/medmasaList";
     }
 
-   /* @RequestMapping(value = {"/placeList"}, method = RequestMethod.POST)
-    public String deletePlace(List<Medmasa> medmasas){
+   @RequestMapping(value = {"/deleteMedmasa"}, method = RequestMethod.POST)
+    public String deleteMedmasa(@RequestParam Integer id){
+        Medmasa.deleteById(id);
 
-        Iterator<Place> iterator = places.iterator();
-        iterator.remove();
-        
-        return "placeList";
+        return "redirect:/medmasaList";
     }
-*/
+
+    //Pacientu kontrolleri
+
+    @RequestMapping(value = {"/pacientsList"}, method = RequestMethod.GET)
+    public String pacienti(Model model){
+        model.addAttribute("pacienti", Pacients.pacientsList);
+
+        return "pacientsList";
+    }
+
+    //Apmeklejuma kontrolleri
+
+    @RequestMapping(value = {"/apmeklejumiList"}, method = RequestMethod.GET)
+    public String apmeklejumi(Model model){
+        model.addAttribute("apmeklejumi", Pacients.pacientsList);
+
+        return "pacientsList";
+    }
+
+
+
 }

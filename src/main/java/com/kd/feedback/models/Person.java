@@ -1,11 +1,11 @@
 package com.kd.feedback.models;
 
 public class Person {
-    private Integer id;
-    private String fName;
-    private String lName;
-    private String number;
-    private String address;
+    protected Integer id;
+    protected String fName;
+    protected String lName;
+    protected String number;
+    protected String address;
 
     public Person(Integer id, String fName, String lName, String number, String address) {
         this.id = id;
@@ -61,5 +61,6 @@ public class Person {
     }
 
     public void add(Medmasa medmasa) {
+
     }
 }

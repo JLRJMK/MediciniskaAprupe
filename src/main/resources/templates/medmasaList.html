@@ -2,20 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>Place List</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/static/style.css}"/>
+    <title>Medicīnas māsas</title>
 </head>
 <body>
-<h1>Person List</h1>
-<a href="addMedmasa">Add Place</a>
+<h1>Medicīnas māsas</h1>
+<a href="addMedmasa">Pievienot medicīnas māsu</a>
 <br/><br/>
 <div>
     <table>
         <tr>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Phone</th>
-            <th>Address</th>
+            <th>Vārds</th>
+            <th>Uzvārds</th>
+            <th>Tel. numurs</th>
+            <th>Adrese</th>
 
         </tr>
         <tr th:each ="medmasa:${medmasas}">
@@ -23,7 +22,12 @@
             <td th:text="${medmasa.lName}">...</td>
             <td th:text="${medmasa.number}">...</td>
             <td th:text="${medmasa.address}">...</td>
-
+            <td>
+            <form th:action="@{deleteMedmasa}" method="post">
+                <input type="hidden" name="id" th:value="${medmasa.id}"/>
+                <input type="submit" value="Delete" class="btn btn-danger"/>
+            </form>
+            </td>
         </tr>
     </table>
 
