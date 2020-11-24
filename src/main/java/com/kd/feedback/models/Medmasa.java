@@ -1,7 +1,6 @@
 package com.kd.feedback.models;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+
+import com.kd.feedback.data.DataLists;
 
 public class Medmasa extends Person {
 
@@ -14,30 +13,29 @@ public class Medmasa extends Person {
         super();
     }
 
-    public static final List<Medmasa> medmasas = new ArrayList<>();
 
-    static {
-        medmasas.add(new Medmasa(1, "C", "CC    ", "ccc", "cccc"));
-        medmasas.add(new Medmasa(2, "d", "dd", "ddd", "dddd"));
-    }
-
-    static public void deleteById(Integer id){
-        Iterator<Medmasa> itr = medmasas.iterator();
-        while (itr.hasNext()){
-            if(itr.next().getId().equals(id)){
-                itr.remove();
-                break;
+    public static Medmasa getById(Integer id) {
+        for (Medmasa medmasa : DataLists.medmasas) {
+            if (medmasa.getId().equals(id)) {
+                return medmasa;
             }
         }
+        return null;
+    }
+
+    public void save() {
+        Medmasa medmasa = Medmasa.getById(this.id);
+        if (medmasa != null) {
+            DataLists.medmasas.remove(medmasa);
+        }
+        DataLists.medmasas.add(this);
     }
 
     public void delete() {
-        Iterator<Medmasa> itr = medmasas.iterator();
-        while (itr.hasNext()){
-            if(itr.next().getId().equals(this.id)){
-                itr.remove();
-                break;
-            }
+        Medmasa medmasa = Medmasa.getById(this.id);
+        if (medmasa != null) {
+            DataLists.medmasas.remove(medmasa);
         }
     }
+
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>Medicīnas māsas</title>
 </head>
 <body>
@@ -17,16 +17,16 @@
             <th>Adrese</th>
 
         </tr>
-        <tr th:each ="medmasa:${medmasas}">
+        <tr th:each="medmasa:${medmasas}">
             <td th:text="${medmasa.fName}">...</td>
             <td th:text="${medmasa.lName}">...</td>
             <td th:text="${medmasa.number}">...</td>
             <td th:text="${medmasa.address}">...</td>
             <td>
-            <form th:action="@{deleteMedmasa}" method="post">
-                <input type="hidden" name="id" th:value="${medmasa.id}"/>
-                <input type="submit" value="Delete" class="btn btn-danger"/>
-            </form>
+                <form th:action="@{deleteMedmasa}" method="post">
+                    <input type="hidden" name="id" th:value="${medmasa.id}"/>
+                    <input type="submit" value="Delete" class="btn btn-danger"/>
+                </form>
             </td>
         </tr>
     </table>

@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Ģimenes ārsti</title>
+</head>
+<body>
+<h1>Ģimenes ārsti</h1>
+<a href="addGim_arsts">Pievienot ģimenes ārstu</a>
+<br/><br/>
+<div>
+    <table>
+        <tr>
+            <th>Vārds</th>
+            <th>Uzvārds</th>
+            <th>Tel. numurs</th>
+            <th>Adrese</th>
+
+        </tr>
+        <tr th:each="gim_arsts:${gim_arsti}">
+            <td th:text="${gim_arsts.fName}">...</td>
+            <td th:text="${gim_arsts.lName}">...</td>
+            <td th:text="${gim_arsts.number}">...</td>
+            <td th:text="${gim_arsts.address}">...</td>
+            <td>
+                <form th:action="@{deleteGim_arsts}" method="post">
+                    <input type="hidden" name="id" th:value="${gim_arsts.id}"/>
+                    <input type="submit" value="Delete" class="btn btn-danger"/>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+</div>
+</body>
+</html>

@@ -1,9 +1,12 @@
 package com.kd.feedback.models;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+
+import com.kd.feedback.data.DataLists;
 
 public class Apmeklejums {
+    public static final int STATUS_CREATED = 0;
+    public static final int STATUS_ACCEPTED = 1;
+    public static final int STATUS_CONFIRMED = 2;
+
     private Integer id;
     private String date;
     private String description;
@@ -20,12 +23,7 @@ public class Apmeklejums {
         this.pacients = pacients;
         this.medmasa = medmasa;
     }
-    public static final List<Apmeklejums> apmeklejumsList = new ArrayList<>();
 
-    {
-        apmeklejumsList.add(new Apmeklejums(1, "20.12.2020", "g", 1, null, null));
-        apmeklejumsList.add(new Apmeklejums(2, "03.01.2021", "h", 0, null, null));
-    }
 
     public Integer getId() {
         return id;
@@ -35,11 +33,11 @@ public class Apmeklejums {
         this.id = id;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -73,5 +71,29 @@ public class Apmeklejums {
 
     public void setMedmasa(Medmasa medmasa) {
         this.medmasa = medmasa;
+    }
+
+    public static Apmeklejums getById(Integer id) {
+        for (Apmeklejums apmeklejums : DataLists.apmeklejumsList) {
+            if (apmeklejums.getId().equals(id)) {
+                return apmeklejums;
+            }
+        }
+        return null;
+    }
+
+    public void save() {
+        Apmeklejums apmeklejums = Apmeklejums.getById(this.id);
+        if (apmeklejums != null) {
+            DataLists.apmeklejumsList.remove(apmeklejums);
+        }
+        DataLists.apmeklejumsList.add(this);
+    }
+
+    public void delete() {
+        Apmeklejums apmeklejums = Apmeklejums.getById(this.id);
+        if (apmeklejums != null) {
+            DataLists.apmeklejumsList.remove(apmeklejums);
+        }
     }
 }

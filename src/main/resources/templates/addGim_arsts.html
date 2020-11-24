@@ -2,16 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>Pievienot medicīnas māsu</title>
+    <title>Pievienot gimenes arstu</title>
     <link rel="stylesheet" type="text/css" th:href="@{/static/style.css}"/>
 </head>
 <body>
-<h1>Pievienot jaunu medicīnas māsu:</h1>
+<h1>Pievienot jaunu gimenes arstu:</h1>
 
 
 
-<form th:action="@{/addMedmasa}"
-      th:object="${medmasa}" method="POST">
+<form th:action="@{/addGim_arsts}"
+      th:object="${gim_arsts}" method="POST">
 
     ID:
     <label>

@@ -1,6 +1,6 @@
 package com.kd.feedback.models;
-import java.util.ArrayList;
-import java.util.List;
+
+import com.kd.feedback.data.DataLists;
 
 public class Pacients extends Person {
 
@@ -10,15 +10,9 @@ public class Pacients extends Person {
         super(id, fName, lName, number, address);
         this.gim_arsts = gim_arsts;
     }
-    public Pacients(){
+
+    public Pacients() {
         super();
-    }
-
-    public static final List<Pacients> pacientsList = new ArrayList<>();
-
-    {
-        pacientsList.add(new Pacients(1, "e", "ee", "eee", "eeee", null));
-        pacientsList.add(new Pacients(2, "f", "ff", "fff", "ffff", null));
     }
 
     public Gim_arsts getGim_arsts() {
@@ -28,4 +22,29 @@ public class Pacients extends Person {
     public void setGim_arsts(Gim_arsts gim_arsts) {
         this.gim_arsts = gim_arsts;
     }
+
+    public static Pacients getById(Integer id) {
+        for (Pacients pacients : DataLists.pacientsList) {
+            if (pacients.getId().equals(id)) {
+                return pacients;
+            }
+        }
+        return null;
+    }
+
+    public void save() {
+        Pacients pacients = Pacients.getById(this.id);
+        if (pacients != null) {
+            DataLists.pacientsList.remove(pacients);
+        }
+        DataLists.pacientsList.add(this);
+    }
+
+    public void delete() {
+        Pacients pacients = Pacients.getById(this.id);
+        if (pacients != null) {
+            DataLists.pacientsList.remove(pacients);
+        }
+    }
 }
+

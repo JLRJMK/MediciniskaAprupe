@@ -30,7 +30,13 @@
                 </form>
             </td>
             <td>
-                <form th:if="${apmeklejums.state == 0}" th:action="@{confirmApm}" method="post">
+                <form th:if="${apmeklejums.state == 1}" th:action="@{undoApm}" method="post">
+                    <input type="hidden" name="id" th:value="${apmeklejums.id}"/>
+                    <input type="submit" value="Apstiprinat" class="btn btn-danger"/>
+                </form>
+            </td>
+            <td>
+                <form th:if="${apmeklejums.state == 1}" th:action="@{confirmApm}" method="post">
                     <input type="hidden" name="id" th:value="${apmeklejums.id}"/>
                     <input type="submit" value="Apstiprinat" class="btn btn-danger"/>
                 </form>
