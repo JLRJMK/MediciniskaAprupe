@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Dokumenti</title>
+</head>
+<body>
+<h1>Dokumenti</h1>
+<br/><br/>
+<div>
+    <table>
+        <tr>
+            <th>Datums</th>
+            <th>Nosaukums</th>
+            <th>Adrese</th>
+            <th>Doktors</th>
+            <th>Saturs</th>
+            <th>Pacients</th>
+            <th>Ģimenes ārsts</th>
+
+
+
+
+        </tr>
+        <tr th:each="dokuments:${dokumenti}">
+            <td th:text="${dokuments.date}">...</td>
+            <td th:text="${dokuments.name}">...</td>
+            <td th:text="${dokuments.address}">...</td>
+            <td th:text="${dokuments.doctor}">...</td>
+            <td th:text="${dokuments.content}">...</td>
+            <td th:if="${dokuments.pacients != null}" th:text="${dokuments.pacients.fName}">...</td>
+            <td th:if="${dokuments.pacients != null}" th:text="${dokuments.pacients.lName}">...</td>
+            <td th:if="${dokuments.gim_arsts != null}" th:text="${dokuments.gim_arsts.fName}">...</td>
+            <td th:if="${dokuments.gim_arsts != null}" th:text="${dokuments.gim_arsts.lName}">...</td>
+            <td></td>
+            <td></td>
+            <td>
+                <form th:action="@{deleteDokuments}" method="post">
+                    <input type="hidden" name="id" th:value="${dokuments.id}"/>
+                    <input type="submit" value="Delete" class="btn btn-danger"/>
+                </form>
+            </td>
+
+        </tr>
+    </table>
+
+</div>
+</body>
+</html>

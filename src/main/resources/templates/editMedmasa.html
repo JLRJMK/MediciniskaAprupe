@@ -10,14 +10,10 @@
 
 
 
-<form th:action="@{/addMedmasa}"
-      th:object="${medmasa}" method="POST">
+<form th:action="@{/editMedmasa}" th:object="${medmasa}" method="POST">
 
-    ID:
-    <label>
-        <input type="text" th:field="*{id}" />
-    </label>
-    <br/>
+
+    <input type="hidden" th:field="*{id}" />
     Name:
     <label>
         <input type="text" th:field="*{fName}" />
@@ -38,9 +34,8 @@
         <input type="text" th:field="*{address}" />
     </label>
     <br/>
-    <input type="submit" value="Create" />
+    <input type="submit" value="Save" />
 </form>
-
 <br/>
 
 </body>

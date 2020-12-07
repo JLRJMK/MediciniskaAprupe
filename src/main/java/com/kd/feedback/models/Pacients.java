@@ -40,6 +40,8 @@ public class Pacients extends Person {
         DataLists.pacientsList.add(this);
     }
 
+
+
     public void delete() {
         Pacients pacients = Pacients.getById(this.id);
         if (pacients != null) {

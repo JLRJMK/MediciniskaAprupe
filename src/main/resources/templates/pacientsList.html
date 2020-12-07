@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Pacienti</h1>
-<a href="addPacients">Pievienot pacientu</a>
+<a href="editPacients">Pievienot pacientu</a>
 <br/><br/>
 <div>
     <table>
@@ -23,7 +23,7 @@
             <td th:text="${pacients.lName}">...</td>
             <td th:text="${pacients.number}">...</td>
             <td th:text="${pacients.address}">...</td>
-            <td th:text="${pacients.gim_arsts.fName} ${pacients.gim_arsts.lName}">...</td>
+            <td th:if="${pacients.gim_arsts != null}"  th:text="${pacients.gim_arsts.fName} ${pacients.gim_arsts.lName}">...</td>
             <td>
                 <form th:action="@{deletePacients}" method="post">
                     <input type="hidden" name="id" th:value="${pacients.id}"/>

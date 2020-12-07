@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Ģimenes ārsts</title>
+</head>
+<body>
+<h1>Ģimenes ārsts</h1>
+<a th:href="${'/editGim_arsts/'+gim_arsts.id}">Rediģēt</a>
+<p th:text="${gim_arsts.fName}">
+<p th:text="${gim_arsts.lName}">
+<p th:text="${gim_arsts.address}">
+<p th:text="${gim_arsts.number}">
+    <br/><br/>
+<h2>Pacienti</h2>
+
+<br/><br/>
+<table>
+    <tr>
+        <th>Pacienta vārds</th>
+        <th>Uzvārds</th>
+        <th>Adrese</th>
+        <th>Numurs</th>
+
+    </tr>
+    <tr th:if="pacients.gim_arsts.id == gim_arsts.id" th:each="pacients:${pacienti}">
+        <td th:text="${pacients.fName}">...</td>
+        <td th:text="${pacients.lName}">...</td>
+        <td th:text="${pacients.address}">...</td>
+        <td th:text="${pacients.number}">...</td>
+    </tr>
+</table>
+
+</body>
+</html>

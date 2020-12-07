@@ -24,6 +24,10 @@ public class Apmeklejums {
         this.medmasa = medmasa;
     }
 
+    public Apmeklejums() {
+
+    }
+
 
     public Integer getId() {
         return id;

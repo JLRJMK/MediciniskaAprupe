@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Pievienot dokumentu</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/style.css}"/>
+</head>
+<body>
+<h1>Pievienot dokumentu:</h1>
+
+
+
+<form th:action="@{/editDokuments}"
+      th:object="${dokuments}" method="POST">
+
+
+    <input type="hidden" th:field="*{id}" />
+    Datums:
+    <label>
+        <input type="text" th:field="*{date}" />
+    </label>
+    <br/>
+    Nosaukums:
+    <label>
+        <input type="text" th:field="*{name}" />
+    </label>
+    <br/>
+    Adrese:
+    <label>
+        <input type="text" th:field="*{address}" />
+    </label>
+    <br/>
+    Ārsts:
+    <label>
+        <input type="text" th:field="*{doctor}" />
+    </label>
+    <br/>
+    Saturs:
+    <label>
+        <input type="text" th:field="*{content}" />
+    </label>
+    <br/>
+    <input type="submit" value="Save" />
+</form>
+
+<br/>
+
+</body>
+</html>

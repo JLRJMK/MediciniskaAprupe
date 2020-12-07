@@ -10,14 +10,11 @@
 
 
 
-<form th:action="@{/addGim_arsts}"
+<form th:action="@{/editGim_arsts}"
       th:object="${gim_arsts}" method="POST">
 
-    ID:
-    <label>
-        <input type="text" th:field="*{id}" />
-    </label>
-    <br/>
+
+    <input type="hidden" th:field="*{id}" />
     Name:
     <label>
         <input type="text" th:field="*{fName}" />
@@ -38,7 +35,7 @@
         <input type="text" th:field="*{address}" />
     </label>
     <br/>
-    <input type="submit" value="Create" />
+    <input type="submit" value="Save" />
 </form>
 
 <br/>

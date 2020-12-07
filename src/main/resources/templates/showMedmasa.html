@@ -2,49 +2,50 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <title>Apmeklejumi</title>
+    <title>Medmāsa</title>
 </head>
 <body>
-<h1>Apmeklejumi</h1>
-<br/><br/>
-<div>
+<h1>Medmāsa</h1>
+<a th:href="${'/editMedmasa/'+medmasa.id}">Rediģēt</a>
+
+<p th:text="${medmasa.fName}">
+<p th:text="${medmasa.lName}">
+<p th:text="${medmasa.address}">
+<p th:text="${medmasa.number}">
+    <br/><br/>
+    <h2>Apmeklējumi</h2>
     <table>
         <tr>
-            <th>Datums</th>
             <th>Statuss</th>
+            <th>Datums</th>
             <th>Apraksts</th>
-            <th>Pacients</th>
-            <th>Medmasa</th>
+            <th>Pacienta vārds</th>
+            <th>Uzvārds</th>
+            <th>Adrese</th>
+            <th>Numurs</th>
 
         </tr>
-        <tr th:each="apmeklejums:${apmeklejumi}">
-            <td th:text="${apmeklejums.date}">...</td>
+        <tr th:if="apmeklejums.medmasa.id == medmasa.id" th:each="apmeklejums:${apmeklejumi}">
             <td th:text="${apmeklejums.state}">...</td>
+            <td th:text="${apmeklejums.date}">...</td>
             <td th:text="${apmeklejums.description}">...</td>
-            <td th:text="${apmeklejums.pacients}">...</td>
-            <td th:text="${apmeklejums.medmasa}">...</td>
+            <td th:text="${apmeklejums.pacients.fName}">...</td>
+            <td th:text="${apmeklejums.pacients.lName}">...</td>
+            <td th:text="${apmeklejums.pacients.address}">...</td>
+            <td th:text="${apmeklejums.pacients.number}">...</td>
             <td>
-                <form th:action="@{deleteApmeklejums}" method="post">
+                <form th:action="@{undoApm}" method="post">
                     <input type="hidden" name="id" th:value="${apmeklejums.id}"/>
-                    <input type="submit" value="Delete" class="btn btn-danger"/>
+                    <input type="submit" value="Atcelt" class="btn btn-danger"/>
                 </form>
             </td>
             <td>
-                <form th:if="${apmeklejums.state == 1}" th:action="@{undoApm}" method="post">
+                <form th:if="${apmeklejums.state == 1}"  th:action="@{completeApm}" method="post">
                     <input type="hidden" name="id" th:value="${apmeklejums.id}"/>
-                    <input type="submit" value="Apstiprinat" class="btn btn-danger"/>
+                    <input type="submit" value="Apmeklēts" class="btn btn-danger"/>
                 </form>
             </td>
-            <td>
-                <form th:if="${apmeklejums.state == 1}" th:action="@{confirmApm}" method="post">
-                    <input type="hidden" name="id" th:value="${apmeklejums.id}"/>
-                    <input type="submit" value="Apstiprinat" class="btn btn-danger"/>
-                </form>
-            </td>
-
         </tr>
     </table>
-
-</div>
 </body>
 </html>
