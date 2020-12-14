@@ -1,14 +1,37 @@
 package com.kd.feedback.models;
 
 import com.kd.feedback.data.DataLists;
+import org.springframework.beans.factory.annotation.Autowired;
 
-public class Pacients extends Person {
+import javax.persistence.*;
+import java.io.Serializable;
 
+@Entity
+public class Pacients extends Person implements Serializable {
+
+    @Transient
+    @Autowired
+    private DataLists dataLists;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+
+    @ManyToOne(targetEntity = Gim_arsts.class)
     private Gim_arsts gim_arsts;
 
-    public Pacients(Integer id, String fName, String lName, String number, String address, Gim_arsts gim_arsts) {
-        super(id, fName, lName, number, address);
+    public Pacients(String fName, String lName, String number, String address, Gim_arsts gim_arsts) {
+        super(fName, lName, number, address);
         this.gim_arsts = gim_arsts;
+
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Pacients() {
@@ -23,30 +46,23 @@ public class Pacients extends Person {
         this.gim_arsts = gim_arsts;
     }
 
-    public static Pacients getById(Integer id) {
-        for (Pacients pacients : DataLists.pacientsList) {
-            if (pacients.getId().equals(id)) {
-                return pacients;
-            }
-        }
-        return null;
+  /*  public static Pacients getById(Integer id) {
+        return (dataLists.pacientsRepository.existsById(id)) ?
+                dataLists.pacientsRepository.findById(id).get() :
+                null;
     }
+*/
+   // public void save() {
+     //   dataLists.pacientsRepository.save(this);
+  //  }
 
-    public void save() {
+
+
+  /*  public void delete() {
         Pacients pacients = Pacients.getById(this.id);
         if (pacients != null) {
             DataLists.pacientsList.remove(pacients);
         }
-        DataLists.pacientsList.add(this);
-    }
-
-
-
-    public void delete() {
-        Pacients pacients = Pacients.getById(this.id);
-        if (pacients != null) {
-            DataLists.pacientsList.remove(pacients);
-        }
-    }
+    }*/
 }
 

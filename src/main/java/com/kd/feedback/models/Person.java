@@ -1,14 +1,18 @@
 package com.kd.feedback.models;
 
-public class Person {
-    protected Integer id;
+import javax.persistence.MappedSuperclass;
+import java.io.Serializable;
+
+@MappedSuperclass
+public class Person implements Serializable {
+
     protected String fName;
     protected String lName;
     protected String number;
     protected String address;
 
-    public Person(Integer id, String fName, String lName, String number, String address) {
-        this.id = id;
+    public Person(String fName, String lName, String number, String address) {
+
         this.fName = fName;
         this.lName = lName;
         this.number = number;
@@ -19,13 +23,6 @@ public class Person {
 
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getfName() {
         return fName;

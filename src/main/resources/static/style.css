@@ -1,15 +1,90 @@
 h1 {
-    color:#0000FF;
+    color: #512017;
 }
 
 h2 {
-    color:#FF0000;
+    color:tomato;
+}
+
+.linkButton{
+    background-color: #333;
+    color: white;
+    text-align: center;
+    display: inline-block;
+    padding: 14px 25px;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.linkButton:hover{
+    background-color:#111;
+
 }
 
 table {
     border-collapse: collapse;
+    width: 100%;
 }
 
 table th, table td {
-    padding: 5px;
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #d3d3d3;
+}
+
+table tr:hover{
+    background-color: #f5f5f5;
+}
+
+
+th{
+    background-color: tomato;
+    color: white;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #111;
+}
+
+.active {
+    background-color: tomato;
+}
+
+.button{
+    background-color: #333;
+    color: white;
+    text-align: center;
+    display: inline-block;
+    padding: 14px 25px;
+    text-decoration: none;
+    border-radius: 4px;
+    opacity: 0.6;
+    border: none;
+}
+
+.button:hover{
+    opacity: 1;
 }

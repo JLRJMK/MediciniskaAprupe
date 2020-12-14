@@ -2,15 +2,30 @@ package com.kd.feedback.models;
 
 import com.kd.feedback.data.DataLists;
 
-public class Gim_arsts extends Person {
+import javax.persistence.*;
+import java.io.Serializable;
 
+@Entity
+public class Gim_arsts extends Person implements Serializable {
 
-    public Gim_arsts(Integer id, String fName, String lName, String number, String address) {
-        super(id, fName, lName, number, address);
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+
+    public Gim_arsts(String fName, String lName, String number, String address) {
+        super(fName, lName, number, address);
     }
 
     public Gim_arsts() {
         super();
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public static Gim_arsts getById(Integer id) {

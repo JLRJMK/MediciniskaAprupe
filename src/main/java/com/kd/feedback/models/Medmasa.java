@@ -2,17 +2,34 @@ package com.kd.feedback.models;
 
 import com.kd.feedback.data.DataLists;
 
-public class Medmasa extends Person {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.io.Serializable;
 
+@Entity
+public class Medmasa extends Person implements Serializable {
 
-    public Medmasa(Integer id, String fName, String lName, String number, String address) {
-        super(id, fName, lName, number, address);
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+
+    public Medmasa(String fName, String lName, String number, String address) {
+        super(fName, lName, number, address);
     }
 
     public Medmasa() {
         super();
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public static Medmasa getById(Integer id) {
         for (Medmasa medmasa : DataLists.medmasas) {

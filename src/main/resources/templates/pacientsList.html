@@ -1,12 +1,23 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
+    <link rel="stylesheet" th:href="@{style.css}" href="../static/style.css">
     <meta charset="UTF-8"/>
     <title>Pacienti</title>
 </head>
 <body>
+
+<ul>
+    <li><a class="active" href="index">Home</a></li>
+    <li><a href="medmasaList">Medmāsas</a></li>
+    <li><a href="gim_arstsList">Ģimenes ārsti</a></li>
+    <li><a href="pacientsList">Pacienti</a></li>
+    <li><a href="apmeklejumsList">Apmeklējumi</a></li>
+    <li><a href="dokumentsList">Dokumenti</a></li>
+</ul>
+
 <h1>Pacienti</h1>
-<a href="editPacients">Pievienot pacientu</a>
+<a class="linkButton" href="editPacients">Pievienot pacientu</a>
 <br/><br/>
 <div>
     <table>
@@ -16,6 +27,7 @@
             <th>Tel. numurs</th>
             <th>Adrese</th>
             <th>Ģimenes ārsts</th>
+            <th> </th>
 
         </tr>
         <tr th:each="pacients:${pacienti}">
@@ -23,11 +35,12 @@
             <td th:text="${pacients.lName}">...</td>
             <td th:text="${pacients.number}">...</td>
             <td th:text="${pacients.address}">...</td>
+            <td th:if="${pacients.gim_arsts == null}">...</td>
             <td th:if="${pacients.gim_arsts != null}"  th:text="${pacients.gim_arsts.fName} ${pacients.gim_arsts.lName}">...</td>
             <td>
                 <form th:action="@{deletePacients}" method="post">
                     <input type="hidden" name="id" th:value="${pacients.id}"/>
-                    <input type="submit" value="Delete" class="btn btn-danger"/>
+                    <input type="submit" value="Delete" class="button"/>
                 </form>
             </td>
         </tr>

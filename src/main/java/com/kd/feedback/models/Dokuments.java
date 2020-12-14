@@ -1,18 +1,27 @@
 package com.kd.feedback.models;
 import com.kd.feedback.data.DataLists;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.persistence.*;
+
+@Entity
 public class Dokuments {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String name;
     private String date;
     private String address;
     private String doctor;
     private String content;
+    @ManyToOne(targetEntity = Pacients.class)
     private Pacients pacients;
+    @ManyToOne(targetEntity = Gim_arsts.class)
     private Gim_arsts gim_arsts;
 
-    public Dokuments(Integer id, String name, String date, String address, String doctor, String content, Pacients pacients, Gim_arsts gim_arsts){
-        this.id = id;
+    public Dokuments(String name, String date, String address, String doctor, String content, Pacients pacients, Gim_arsts gim_arsts){
+
         this.name = name;
         this.date = date;
         this.address = address;

@@ -1,22 +1,29 @@
 package com.kd.feedback.models;
 
 import com.kd.feedback.data.DataLists;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.persistence.*;
+
+
+@Entity
 public class Apmeklejums {
     public static final int STATUS_CREATED = 0;
     public static final int STATUS_ACCEPTED = 1;
     public static final int STATUS_CONFIRMED = 2;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String date;
     private String description;
     private Integer state;
+    @Autowired
     private Pacients pacients;
     private Medmasa medmasa;
 
 
-    public Apmeklejums(Integer id, String date, String description, Integer state, Pacients pacients, Medmasa medmasa) {
-        this.id = id;
+    public Apmeklejums(String date, String description, Integer state, Pacients pacients, Medmasa medmasa) {
         this.date = date;
         this.description = description;
         this.state = state;

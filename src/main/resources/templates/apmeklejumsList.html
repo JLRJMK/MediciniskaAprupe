@@ -1,10 +1,21 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
+    <link rel="stylesheet" th:href="@{style.css}" href="../static/style.css">
     <meta charset="UTF-8"/>
     <title>Apmeklejumi</title>
 </head>
 <body>
+
+<ul>
+    <li><a class="active" href="index">Home</a></li>
+    <li><a href="medmasaList">Medmāsas</a></li>
+    <li><a href="gim_arstsList">Ģimenes ārsti</a></li>
+    <li><a href="pacientsList">Pacienti</a></li>
+    <li><a href="apmeklejumsList">Apmeklējumi</a></li>
+    <li><a href="dokumentsList">Dokumenti</a></li>
+</ul>
+
 <h1>Apmeklejumi</h1>
 <br/><br/>
 <div>
@@ -15,6 +26,8 @@
             <th>Apraksts</th>
             <th>Pacients</th>
             <th>Medmasa</th>
+            <th> </th>
+            <th> </th>
 
         </tr>
         <tr th:each="apmeklejums:${apmeklejumi}">
@@ -26,13 +39,13 @@
             <td>
                 <form th:action="@{deleteApmeklejums}" method="post">
                     <input type="hidden" name="id" th:value="${apmeklejums.id}"/>
-                    <input type="submit" value="Delete" class="btn btn-danger"/>
+                    <input type="submit" value="Delete" class="button"/>
                 </form>
             </td>
             <td>
                 <form th:if="${apmeklejums.state == 0}" th:action="@{confirmApm}" method="post">
                     <input type="hidden" name="id" th:value="${apmeklejums.id}"/>
-                    <input type="submit" value="Apstiprinat" class="btn btn-danger"/>
+                    <input type="submit" value="Apstiprinat" class="button"/>
                 </form>
             </td>
 

@@ -1,12 +1,13 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
+    <link rel="stylesheet" th:href="@{/style.css}">
     <meta charset="UTF-8"/>
     <title>Medmāsa</title>
 </head>
 <body>
 <h1>Medmāsa</h1>
-<a th:href="${'/editMedmasa/'+medmasa.id}">Rediģēt</a>
+<a class="linkButton" th:href="${'/editMedmasa/'+medmasa.id}">Rediģēt</a>
 
 <p th:text="${medmasa.fName}">
 <p th:text="${medmasa.lName}">
