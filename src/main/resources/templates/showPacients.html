@@ -20,7 +20,7 @@
 <p th:if="${pacients.gim_arsts}!= null" th:text="${pacients.gim_arsts.number}">
 <div>
     <h2>Apmeklējumi</h2>
-    <a th:href="${'/addApmeklejums'}">Pievienot apmeklējumu</a>
+    <a th:href="${'/addApmeklejums/'+pacients.id}">Pievienot apmeklējumu</a>
 
     <table>
         <tr>
@@ -31,12 +31,12 @@
             <th>Uzvārds</th>
 
         </tr>
-        <tr th:if="apmeklejums.pacients.id == pacients.id" th:each="apmeklejums:${apmeklejumi}">
+        <tr th:each="apmeklejums:${apmeklejumi}">
             <td th:text="${apmeklejums.state}">...</td>
             <td th:text="${apmeklejums.date}">...</td>
             <td th:text="${apmeklejums.description}">...</td>
-            <td th:text="${apmeklejums.medmasa.fName}">...</td>
-            <td th:text="${apmeklejums.medmasa.lName}">...</td>
+            <td th:text="${apmeklejums.medmasa}">...</td>
+            <td th:text="${apmeklejums.medmasa}">...</td>
 
         </tr>
     </table>

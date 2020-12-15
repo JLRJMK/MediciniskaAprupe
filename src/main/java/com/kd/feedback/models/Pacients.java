@@ -1,17 +1,18 @@
 package com.kd.feedback.models;
 
-import com.kd.feedback.data.DataLists;
+import com.kd.feedback.services.PacientsService;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Pacients extends Person implements Serializable {
 
     @Transient
     @Autowired
-    private DataLists dataLists;
+    private PacientsService pacientsService;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,6 +20,9 @@ public class Pacients extends Person implements Serializable {
 
     @ManyToOne(targetEntity = Gim_arsts.class)
     private Gim_arsts gim_arsts;
+
+    @OneToMany(mappedBy = "pacients", fetch = FetchType.EAGER)
+    private List<Apmeklejums> apmeklejumi = new ArrayList<>();
 
     public Pacients(String fName, String lName, String number, String address, Gim_arsts gim_arsts) {
         super(fName, lName, number, address);
@@ -46,23 +50,13 @@ public class Pacients extends Person implements Serializable {
         this.gim_arsts = gim_arsts;
     }
 
-  /*  public static Pacients getById(Integer id) {
-        return (dataLists.pacientsRepository.existsById(id)) ?
-                dataLists.pacientsRepository.findById(id).get() :
-                null;
+    public List<Apmeklejums> getApmeklejumi() {
+        return apmeklejumi;
     }
-*/
-   // public void save() {
-     //   dataLists.pacientsRepository.save(this);
-  //  }
 
+    public void setApmeklejumi(List<Apmeklejums> apmeklejumi) {
+        this.apmeklejumi = apmeklejumi;
+    }
 
-
-  /*  public void delete() {
-        Pacients pacients = Pacients.getById(this.id);
-        if (pacients != null) {
-            DataLists.pacientsList.remove(pacients);
-        }
-    }*/
 }
 

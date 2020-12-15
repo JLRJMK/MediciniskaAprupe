@@ -1,19 +1,26 @@
 package com.kd.feedback.controllers;
 
-import com.kd.feedback.data.DataLists;
 import com.kd.feedback.models.Dokuments;
+import com.kd.feedback.services.DokumentsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class DokumentsController {
+
+    @Autowired
+    private DokumentsService dokumentsService;
 
     //Dokumentu kontrolleri
     //Dokumentu saraksts
     @RequestMapping(value = {"/dokumentsList"}, method = RequestMethod.GET)
     public String Dokumenti(Model model) {
-        model.addAttribute("dokumenti", DataLists.dokumentsList);
+        List<Dokuments> dokumenti = dokumentsService.all();
+        model.addAttribute("dokumenti", dokumenti);
         return "dokumentsList";
     }
     //Pievienot dokumentu GET
@@ -29,7 +36,7 @@ public class DokumentsController {
     //Pievienot/rediget dokumentu POST
     @RequestMapping(value = {"/editDokuments"}, method = RequestMethod.POST)
     public String saveDokuments(@ModelAttribute("dokumentsForm") Dokuments dokuments) {
-        dokuments.save();
+        dokumentsService.save(dokuments);
 
         return "redirect:/dokumentsList";
     }
@@ -37,7 +44,7 @@ public class DokumentsController {
     //Rediget dokumenta datus GET
     @RequestMapping(value = {"/editDokuments/{id}"}, method = RequestMethod.GET)
     public String showUpdateDokumentsPage(@PathVariable Integer id, Model model) {
-        Dokuments dokuments = Dokuments.getById(id);
+        Dokuments dokuments = dokumentsService.getById(id);
         model.addAttribute("dokuments", dokuments);
 
         return "editDokuments";
@@ -47,12 +54,7 @@ public class DokumentsController {
     //Nodzest dokumentu
     @RequestMapping(value = {"/deleteDokuments"}, method = RequestMethod.POST)
     public String deleteDokuments(@RequestParam Integer id) {
-        Dokuments dokuments = Dokuments.getById(id);
-        if (dokuments != null) {
-            dokuments.delete();
-        } else {
-            return "redirect:/notFoundError";
-        }
+        dokumentsService.deleteById(id);
 
         return "redirect:/dokumentsList";
     }

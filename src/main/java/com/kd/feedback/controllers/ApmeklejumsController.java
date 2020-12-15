@@ -1,61 +1,66 @@
 package com.kd.feedback.controllers;
 
-import com.kd.feedback.data.DataLists;
 import com.kd.feedback.models.Apmeklejums;
 import com.kd.feedback.models.Pacients;
+import com.kd.feedback.services.ApmeklejumsService;
+import com.kd.feedback.services.PacientsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 
 @Controller
 public class ApmeklejumsController {
+
+    @Autowired
+    private ApmeklejumsService apmeklejumsService;
+
+    @Autowired
+    private PacientsService pacientsService;
 
     //Apmeklejuma kontrolleri
     //Apmeklejumu saraksts
     @RequestMapping(value = {"/apmeklejumsList"}, method = RequestMethod.GET)
     public String apmeklejumi(Model model) {
-        model.addAttribute("apmeklejumi", DataLists.apmeklejumsList);
+        List<Apmeklejums> apmeklejumi = apmeklejumsService.all();
+        model.addAttribute("apmeklejumi", apmeklejumi);
         return "apmeklejumsList";
     }
 
     //Izveidot apmeklejumu GET
-    @RequestMapping(value = {"/addApmeklejums"}, method = RequestMethod.GET)
-    public String showAddApmeklejumsPage(Model model) {
+    @RequestMapping(value = {"/addApmeklejums/{id}"}, method = RequestMethod.GET)
+    public String showAddApmeklejumsPage(@PathVariable Integer id, Model model) {
         Apmeklejums apmeklejums = new Apmeklejums();
+        apmeklejums.setPacients(pacientsService.getById(id));
         model.addAttribute("apmeklejums", apmeklejums);
+  //      model.addAttribute("pacientsId", id);
 
         return "addApmeklejums";
     }
 
     //Izveidot apmeklejumu POST
     @RequestMapping(value = {"/addApmeklejums"}, method = RequestMethod.POST)
-    public String saveApmeklejums(@RequestParam Integer id, @ModelAttribute("apmeklejumsForm") Apmeklejums apmeklejums) {
-        /*Pacients pacients = Pacients.getById(id);
-        System.out.println(id);
+    public String saveApmeklejums(@ModelAttribute("apmeklejumsForm") Apmeklejums apmeklejums) {
+        Pacients pacients = apmeklejums.getPacients();
         if (pacients != null) {
             apmeklejums.setState(Apmeklejums.STATUS_CREATED);
-            apmeklejums.setPacients(Pacients.getById(id));
-            apmeklejums.save();
+            apmeklejums.setPacients(pacients);
+            apmeklejumsService.save(apmeklejums);
             return "redirect:/showPacients/" + pacients.getId();
-        } else{*/
+        } else{
             return "redirect:/notFoundError";
-   //     }
+       }
     }
 
 
     //Nodzest apmeklejumu
     @RequestMapping(value = {"/deleteApmeklejums"}, method = RequestMethod.POST)
     public String deleteApm(@RequestParam Integer id) {
-   /*     Apmeklejums apmeklejums = Apmeklejums.getById(id);
-        if (apmeklejums != null) {
-            apmeklejums.delete();
-        } else {
-            return "redirect:/notFoundError";
-        }
-*/
+        apmeklejumsService.deleteById(id);
+
         return "redirect:/apmeklejumsList";
     }
 
@@ -64,10 +69,10 @@ public class ApmeklejumsController {
     @RequestMapping(value = {"/confirmApm"}, method = RequestMethod.POST)
     public String apstApm(@RequestParam Integer id) throws NullPointerException {
 
-        Apmeklejums apmeklejums = Apmeklejums.getById(id);
+        Apmeklejums apmeklejums = apmeklejumsService.getById(id);
         if (apmeklejums != null) {
             apmeklejums.setState(Apmeklejums.STATUS_ACCEPTED);
-            apmeklejums.save();
+            apmeklejumsService.save(apmeklejums);
         }
 
         return "redirect:/apmeklejumsList";
@@ -76,10 +81,10 @@ public class ApmeklejumsController {
     //Atcelt apmeklejumu
     @RequestMapping(value = {"/undoApm"}, method = RequestMethod.POST)
     public String undoApm(@RequestParam Integer id) {
-        Apmeklejums apmeklejums = Apmeklejums.getById(id);
+        Apmeklejums apmeklejums = apmeklejumsService.getById(id);
         if (apmeklejums != null) {
             apmeklejums.setState(Apmeklejums.STATUS_CREATED);
-            apmeklejums.save();
+            apmeklejumsService.save(apmeklejums);
         } else {
             return "redirect:/notFoundError";
         }
@@ -90,10 +95,10 @@ public class ApmeklejumsController {
     //Pabeigt apmeklejumu
     @RequestMapping(value = {"/completeApm"}, method = RequestMethod.POST)
     public String completeApm(@RequestParam Integer id) {
-        Apmeklejums apmeklejums = Apmeklejums.getById(id);
+        Apmeklejums apmeklejums = apmeklejumsService.getById(id);
         if (apmeklejums != null) {
             apmeklejums.setState(Apmeklejums.STATUS_CONFIRMED);
-            apmeklejums.save();
+            apmeklejumsService.save(apmeklejums);
         } else {
             return "redirect:/notFoundError";
         }

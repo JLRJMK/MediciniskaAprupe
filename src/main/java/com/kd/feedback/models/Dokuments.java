@@ -1,11 +1,16 @@
 package com.kd.feedback.models;
-import com.kd.feedback.data.DataLists;
-import org.springframework.beans.factory.annotation.Autowired;
 
+import com.kd.feedback.services.DokumentsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import javax.persistence.*;
 
 @Entity
 public class Dokuments {
+
+    @Transient
+    @Autowired
+    private DokumentsService dokumentsService;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -99,27 +104,5 @@ public class Dokuments {
         this.doctor = doctor;
     }
 
-    public static Dokuments getById(Integer id) {
-        for (Dokuments dokuments : DataLists.dokumentsList) {
-            if (dokuments.getId().equals(id)) {
-                return dokuments;
-            }
-        }
-        return null;
-    }
 
-    public void save() {
-        Dokuments dokuments = Dokuments.getById(this.id);
-        if (dokuments != null) {
-            DataLists.dokumentsList.remove(dokuments);
-        }
-        DataLists.dokumentsList.add(this);
-    }
-
-    public void delete() {
-        Dokuments dokuments = Dokuments.getById(this.id);
-        if (dokuments != null) {
-            DataLists.dokumentsList.remove(dokuments);
-        }
-    }
 }

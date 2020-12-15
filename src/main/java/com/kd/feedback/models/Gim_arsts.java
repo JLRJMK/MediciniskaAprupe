@@ -1,16 +1,25 @@
 package com.kd.feedback.models;
 
-import com.kd.feedback.data.DataLists;
-
+import com.kd.feedback.services.Gim_arstsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Gim_arsts extends Person implements Serializable {
 
+    @Transient
+    @Autowired
+    private Gim_arstsService gim_arstsService;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    @OneToMany(mappedBy = "gim_arsts", fetch = FetchType.EAGER)
+    private List<Pacients> pacienti = new ArrayList<>();
 
     public Gim_arsts(String fName, String lName, String number, String address) {
         super(fName, lName, number, address);
@@ -28,28 +37,11 @@ public class Gim_arsts extends Person implements Serializable {
         this.id = id;
     }
 
-    public static Gim_arsts getById(Integer id) {
-        for (Gim_arsts gim_arsts : DataLists.gim_arstsList) {
-            if (gim_arsts.getId().equals(id)) {
-                return gim_arsts;
-            }
-        }
-        return null;
+    public List<Pacients> getPacienti() {
+        return pacienti;
     }
 
-    public void save() {
-        Gim_arsts gim_arsts = Gim_arsts.getById(this.id);
-        if (gim_arsts != null) {
-            DataLists.gim_arstsList.remove(gim_arsts);
-        }
-        DataLists.gim_arstsList.add(this);
-    }
-
-    public void delete() {
-        Gim_arsts gim_arsts = Gim_arsts.getById(this.id);
-        ;
-        if (gim_arsts != null) {
-            DataLists.gim_arstsList.remove(gim_arsts);
-        }
+    public void setPacienti(List<Pacients> pacienti) {
+        this.pacienti = pacienti;
     }
 }

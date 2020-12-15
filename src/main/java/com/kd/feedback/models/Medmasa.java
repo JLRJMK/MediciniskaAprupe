@@ -1,19 +1,28 @@
 package com.kd.feedback.models;
 
-import com.kd.feedback.data.DataLists;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.kd.feedback.services.MedmasaService;
+import org.springframework.beans.factory.annotation.Autowired;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+
 
 @Entity
 public class Medmasa extends Person implements Serializable {
 
+    @Transient
+    @Autowired
+    private MedmasaService medmasaService;
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    @OneToMany(mappedBy = "medmasa", fetch = FetchType.EAGER)
+    private List<Apmeklejums> apmeklejumi = new ArrayList<>();
 
     public Medmasa(String fName, String lName, String number, String address) {
         super(fName, lName, number, address);
@@ -31,28 +40,12 @@ public class Medmasa extends Person implements Serializable {
         this.id = id;
     }
 
-    public static Medmasa getById(Integer id) {
-        for (Medmasa medmasa : DataLists.medmasas) {
-            if (medmasa.getId().equals(id)) {
-                return medmasa;
-            }
-        }
-        return null;
+
+    public List<Apmeklejums> getApmeklejumi() {
+        return apmeklejumi;
     }
 
-    public void save() {
-        Medmasa medmasa = Medmasa.getById(this.id);
-        if (medmasa != null) {
-            DataLists.medmasas.remove(medmasa);
-        }
-        DataLists.medmasas.add(this);
+    public void setApmeklejumi(List<Apmeklejums> apmeklejumi) {
+        this.apmeklejumi = apmeklejumi;
     }
-
-    public void delete() {
-        Medmasa medmasa = Medmasa.getById(this.id);
-        if (medmasa != null) {
-            DataLists.medmasas.remove(medmasa);
-        }
-    }
-
 }

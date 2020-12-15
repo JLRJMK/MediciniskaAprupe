@@ -2,18 +2,27 @@ package com.kd.feedback.controllers;
 
 import com.kd.feedback.data.DataLists;
 import com.kd.feedback.models.Medmasa;
+import com.kd.feedback.models.Pacients;
+import com.kd.feedback.services.MedmasaService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class MedmasaController {
+
+    @Autowired
+    private MedmasaService medmasaService;
+
 
     // Medmasas kontrolleri
     //Medmasu saraksts
     @RequestMapping(value = {"/medmasaList"}, method = RequestMethod.GET)
     public String medmasas(Model model) {
-        model.addAttribute("medmasas", DataLists.medmasas);
+        List<Medmasa> medmasas = medmasaService.all();
         return "medmasaList";
     }
 
@@ -21,8 +30,9 @@ public class MedmasaController {
     @RequestMapping(value = {"/showMedmasa/{id}"}, method = RequestMethod.GET)
     public String medmasa(@PathVariable("id") Integer id, Model model) {
 
-        model.addAttribute("medmasa", Medmasa.getById(id));
-        model.addAttribute("apmeklejumi", DataLists.apmeklejumsList);
+        Medmasa medmasa = medmasaService.getById(id);
+        model.addAttribute("medmasa", medmasa);
+        model.addAttribute("apmeklejumi", medmasa.getApmeklejumi());
 
         return "showMedmasa";
     }
@@ -40,7 +50,7 @@ public class MedmasaController {
     //Pievienot/redirect medmasu POST
     @RequestMapping(value = {"/editMedmasa"}, method = RequestMethod.POST)
     public String saveMedmasa(@ModelAttribute("medmasaForm") Medmasa medmasa) {
-        medmasa.save();
+        medmasaService.save(medmasa);
 
         return "redirect:/showMedmasa/" + medmasa.getId();
     }
@@ -48,7 +58,7 @@ public class MedmasaController {
     //Rediget medmasas datus GET
     @RequestMapping(value = {"/editMedmasa/{id}"}, method = RequestMethod.GET)
     public String showUpdateMedmasaPage(@PathVariable Integer id, Model model) {
-        Medmasa medmasa = Medmasa.getById(id);
+        Medmasa medmasa = medmasaService.getById(id);
         model.addAttribute("medmasa", medmasa);
 
         return "editMedmasa";
@@ -57,12 +67,7 @@ public class MedmasaController {
     //Nodzest medmasu
     @RequestMapping(value = {"/deleteMedmasa"}, method = RequestMethod.POST)
     public String deleteMedmasa(@RequestParam Integer id) {
-        Medmasa medmasa = Medmasa.getById(id);
-        if (medmasa != null) {
-            medmasa.delete();
-        } else {
-            return "redirect:/notFoundError";
-        }
+        medmasaService.deleteById(id);
 
         return "redirect:/medmasaList";
     }

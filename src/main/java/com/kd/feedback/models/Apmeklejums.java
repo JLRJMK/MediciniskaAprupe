@@ -1,13 +1,19 @@
 package com.kd.feedback.models;
 
-import com.kd.feedback.data.DataLists;
+import com.kd.feedback.services.ApmeklejumsService;
 import org.springframework.beans.factory.annotation.Autowired;
+
 
 import javax.persistence.*;
 
 
 @Entity
 public class Apmeklejums {
+
+    @Transient
+    @Autowired
+    private ApmeklejumsService apmeklejumsService;
+
     public static final int STATUS_CREATED = 0;
     public static final int STATUS_ACCEPTED = 1;
     public static final int STATUS_CONFIRMED = 2;
@@ -18,8 +24,11 @@ public class Apmeklejums {
     private String date;
     private String description;
     private Integer state;
-    @Autowired
+
+    @ManyToOne(targetEntity = Pacients.class)
     private Pacients pacients;
+
+    @ManyToOne(targetEntity = Medmasa.class)
     private Medmasa medmasa;
 
 
@@ -84,27 +93,4 @@ public class Apmeklejums {
         this.medmasa = medmasa;
     }
 
-    public static Apmeklejums getById(Integer id) {
-        for (Apmeklejums apmeklejums : DataLists.apmeklejumsList) {
-            if (apmeklejums.getId().equals(id)) {
-                return apmeklejums;
-            }
-        }
-        return null;
-    }
-
-    public void save() {
-        Apmeklejums apmeklejums = Apmeklejums.getById(this.id);
-        if (apmeklejums != null) {
-            DataLists.apmeklejumsList.remove(apmeklejums);
-        }
-        DataLists.apmeklejumsList.add(this);
-    }
-
-    public void delete() {
-        Apmeklejums apmeklejums = Apmeklejums.getById(this.id);
-        if (apmeklejums != null) {
-            DataLists.apmeklejumsList.remove(apmeklejums);
-        }
-    }
 }

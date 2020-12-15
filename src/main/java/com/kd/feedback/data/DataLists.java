@@ -16,8 +16,6 @@ import java.util.List;
 @Service
 public class DataLists {
 
-    @Autowired
-    public PacientsRepository pacientsRepository;
 
     public static final List<Pacients> pacientsList = new ArrayList<>();
 
