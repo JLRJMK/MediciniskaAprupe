@@ -24,8 +24,8 @@ public class Medmasa extends Person implements Serializable {
     @OneToMany(mappedBy = "medmasa", fetch = FetchType.EAGER)
     private List<Apmeklejums> apmeklejumi = new ArrayList<>();
 
-    public Medmasa(String fName, String lName, String number, String address) {
-        super(fName, lName, number, address);
+    public Medmasa(String fName, String lName, Integer number, String address, String pers_code) {
+        super(fName, lName, number, address, pers_code);
     }
 
     public Medmasa() {

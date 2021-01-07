@@ -10,11 +10,16 @@
 
 
 
-<form th:action="@{/editPacients}"
-      th:object="${pacients}" method="POST">
+<form th:action="@{/editPacients}" th:object="${pacients}" method="POST">
 
 
     <input type="hidden" th:field="*{id}" />
+    <input type="hidden" th:field="*{gim_arsts}" />
+    Personas kods:
+    <label>
+        <input type="text" th:field="*{pers_code}" />
+    </label>
+    <br/>
     Name:
     <label>
         <input type="text" th:field="*{fName}" />

@@ -1,7 +1,9 @@
 package com.kd.feedback.controllers;
 
 import com.kd.feedback.data.DataLists;
+import com.kd.feedback.models.Gim_arsts;
 import com.kd.feedback.models.Pacients;
+import com.kd.feedback.services.Gim_arstsService;
 import com.kd.feedback.services.PacientsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,9 @@ public class PacientsController {
 
     @Autowired
     private PacientsService pacientsService;
+
+    @Autowired
+    private Gim_arstsService gim_arstsService;
 
 
     //Pacientu kontrolleri
@@ -41,10 +46,11 @@ public class PacientsController {
     }
 
     //Pievienot pacientu GET
-    @RequestMapping(value = {"/editPacients"}, method = RequestMethod.GET)
-    public String showAddPacientsPage(Model model) {
+    @RequestMapping(value = {"{id}/editPacients"}, method = RequestMethod.GET)
+    public String showAddPacientsPage(@PathVariable Integer id, Model model) {
 
         Pacients pacients = new Pacients();
+        pacients.setGim_arsts(gim_arstsService.getById(id));
         model.addAttribute("pacients", pacients);
 
         return "editPacients";
@@ -53,9 +59,14 @@ public class PacientsController {
     //Pievienot/rediget pacientu POST
     @RequestMapping(value = {"/editPacients"}, method = RequestMethod.POST)
     public String savePacients(@ModelAttribute("pacientsForm") Pacients pacients) {
-        pacientsService.save(pacients);
-
-        return "redirect:/showPacients/" + pacients.getId();
+        Gim_arsts gim_arsts = pacients.getGim_arsts();
+        if(gim_arsts != null){
+            pacients.setGim_arsts(gim_arsts);
+            pacientsService.save(pacients);
+            return "redirect:/showPacients/" + pacients.getId();
+        }else {
+            return "redirect:/notFoundError";
+        }
     }
 
     //Rediget pacienta datus GET

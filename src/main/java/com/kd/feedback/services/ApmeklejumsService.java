@@ -2,7 +2,7 @@ package com.kd.feedback.services;
 
 import com.kd.feedback.data.ApmeklejumsRepository;
 import com.kd.feedback.models.Apmeklejums;
-import com.kd.feedback.models.Medmasa;import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

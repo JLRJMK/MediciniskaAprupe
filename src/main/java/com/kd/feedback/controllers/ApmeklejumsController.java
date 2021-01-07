@@ -36,7 +36,6 @@ public class ApmeklejumsController {
         Apmeklejums apmeklejums = new Apmeklejums();
         apmeklejums.setPacients(pacientsService.getById(id));
         model.addAttribute("apmeklejums", apmeklejums);
-  //      model.addAttribute("pacientsId", id);
 
         return "addApmeklejums";
     }

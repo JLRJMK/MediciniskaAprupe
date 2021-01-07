@@ -24,8 +24,8 @@ public class Pacients extends Person implements Serializable {
     @OneToMany(mappedBy = "pacients", fetch = FetchType.EAGER)
     private List<Apmeklejums> apmeklejumi = new ArrayList<>();
 
-    public Pacients(String fName, String lName, String number, String address, Gim_arsts gim_arsts) {
-        super(fName, lName, number, address);
+    public Pacients(String fName, String lName, Integer number, String address,String pers_code ,Gim_arsts gim_arsts) {
+        super(fName, lName, number, address, pers_code);
         this.gim_arsts = gim_arsts;
 
     }

@@ -1,5 +1,8 @@
 package com.kd.feedback.models;
 
+import com.sun.istack.NotNull;
+
+import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 
@@ -8,15 +11,19 @@ public class Person implements Serializable {
 
     protected String fName;
     protected String lName;
-    protected String number;
+    protected Integer number;
     protected String address;
+    @Column(unique = true)
+    protected String pers_code;
 
-    public Person(String fName, String lName, String number, String address) {
+
+    public Person(String fName, String lName, Integer number, String address, String pers_code) {
 
         this.fName = fName;
         this.lName = lName;
         this.number = number;
         this.address = address;
+        this.pers_code = pers_code;
     }
 
     public Person() {
@@ -49,15 +56,18 @@ public class Person implements Serializable {
         this.address = address;
     }
 
-    public String getNumber() {
+    public Integer getNumber() {
         return number;
     }
 
-    public void setNumber(String number) {
+    public void setNumber(Integer number) {
         this.number = number;
     }
 
-    public void add(Medmasa medmasa) {
+    public  String getPers_code(){ return pers_code;}
 
+    public void setPers_code(String pers_code) {
+        this.pers_code = pers_code;
     }
 }
+

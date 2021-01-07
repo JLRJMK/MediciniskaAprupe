@@ -14,7 +14,7 @@
 <p th:text="${gim_arsts.number}">
     <br/><br/>
 <h2>Pacienti</h2>
-
+<a class="linkButton" th:href="${'/'+gim_arsts.id+'/editPacients'}">Pievienot pacientu</a>
 <br/><br/>
 <table>
     <tr>
@@ -24,7 +24,7 @@
         <th>Numurs</th>
 
     </tr>
-    <tr th:if="pacients.gim_arsts.id == gim_arsts.id" th:each="pacients:${pacienti}">
+    <tr th:each="pacients:${pacienti}">
         <td th:text="${pacients.fName}">...</td>
         <td th:text="${pacients.lName}">...</td>
         <td th:text="${pacients.address}">...</td>
